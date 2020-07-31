@@ -1,0 +1,8 @@
+
+    <!-- use of ng style directive property -->
+    <!-- <p [ngStyle]="{backgroundColor: getColor()}">Sever is {{serverStatus}}</p> -->
+
+    <!-- adding css classes dynamiclly -->
+    <p class="alert" [ngClass]="{'alert-danger': serverStatus === 'online', 'alert-success': serverStatus !== 'online'}">
+        Sever is {{serverStatus}}
+    </p>

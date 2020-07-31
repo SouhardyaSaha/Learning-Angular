@@ -1,0 +1,23 @@
+<br>
+<div class="container">
+    <input type="text" class="form-control" [(ngModel)]='serverName'> <br>
+    <button class="btn btn-primary" [disabled]="!alloweAddServer" (click)='onAddServer()'>Add Server</button>
+    <app-server *ngFor="let server of servers"></app-server>
+</div>
+
+
+<!-- <input type="text" class="form-control" (input)='onUpdateStatus($event)'> -->
+<!-- <button class="btn btn-primary" [disabled]="!alloweAddServer" (click)='onAddServer()'>Add Server</button> -->
+
+<!-- Assignment 1 -->
+<!-- <input type="text" [(ngModel)]='username' (input)='checkUserName()'>
+    <p>{{username}}</p>
+    <button class="btn btn-primary" [disabled]="isUsernameEmpty" (click)='resetUsername()'>Submit</button> -->
+<!-- Assignment 1 end-->
+
+
+
+<!-- assingment 2 -->
+<!-- <button class="btn btn-primary" (click)="toggleDisplayDetails()">Display Details</button>
+<p *ngIf="showDetails">This is a paragraph</p>
+<p *ngFor="let log of logs let i = index" [ngStyle]="{backgroundColor: i > 4 ? 'brown' : 'green'}">{{log}}</p> -->
