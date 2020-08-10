@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,23 +7,33 @@ import { Component } from '@angular/core';
 })
 
 export class AppComponent {
-  serverElements = [];
-  newServerName = '';
-  newServerContent = '';
 
-  onAddServer() {
-    this.serverElements.push({
-      type: 'server',
-      name: this.newServerName,
-      content: this.newServerContent
-    });
+  // serverElements = [{ name: 'Just A test', type: 'server', content: 'something' }];
+
+  // onServerCreated(serverData: { serverName: string, serverContent: string }) {
+  //   this.serverElements.push({
+  //     type: 'server',
+  //     name: serverData.serverName,
+  //     content: serverData.serverContent
+  //   });
+  // }
+
+  // onBlueprintCreated(blueprintdata: { blueprintName: string, blueprintContent: string }) {
+  //   this.serverElements.push({
+  //     type: 'blueprint',
+  //     name: blueprintdata.blueprintName,
+  //     content: blueprintdata.blueprintContent
+  //   });
+  // }
+
+  // Assignment Code
+
+  evenNumbers: number[] = []
+  oddNumbers: number[] = []
+
+  onIncrementNumber(num: number) {
+    if (num % 2 === 0) this.evenNumbers.push(num)
+    else this.oddNumbers.push(num);
   }
 
-  onAddBlueprint() {
-    this.serverElements.push({
-      type: 'blueprint',
-      name: this.newServerName,
-      content: this.newServerContent
-    });
-  }
 }
