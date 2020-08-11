@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'courseProjectOne';
+
+  showContent: string = 'recipe'
+  onClickEvent(feature: string) {
+    this.showContent = feature
+  }
 }
