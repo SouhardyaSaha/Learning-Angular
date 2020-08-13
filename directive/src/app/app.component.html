@@ -1,13 +1,26 @@
 <div class="container">
   <div class="row">
     <div class="col-12">
-    <button class="btn btn-primary my-3">Only Show Odd Numbers</button>
-    <hr>
-    <ul class="list-group">
-      <li class="list-group-item" *ngFor="let number of numbers">
-        {{ number }}
-      </li>
-    </ul>
-  </div>
+      <button class="btn btn-primary my-3" (click)="onlyOdd = !onlyOdd">Only Show Odd Numbers</button>
+      <hr>
+      <ul class="list-group">
+        <div class="odd" *ngIf="onlyOdd">
+          <li class="list-group-item" *ngFor="let number of evenNumbers">
+            {{ number }}
+          </li>
+        </div>
+        <!-- <div class="even" *ngIf="!onlyOdd">
+          <li class="list-group-item" *ngFor="let number of oddNumbers">
+            {{ number }}
+          </li>
+        </div> -->
+        <div class="even" *appUnless="onlyOdd">
+          <li class="list-group-item" *ngFor="let number of oddNumbers">
+            {{ number }}
+          </li>
+        </div>
+      </ul>
+      <p appHighlight [defaultColor]="'blue'" [highlightColor]="'black'">Custom Directive</p>
+    </div>
   </div>
 </div>
