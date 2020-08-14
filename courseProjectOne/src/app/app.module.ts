@@ -11,8 +11,7 @@ import { RecipeItemComponent } from './recipe-book/recipe-list/recipe-item/recip
 import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DropdownDirective } from './shared/dropdown.directive';
-
-
+import { ShoppinglistsService } from './shopping-list/shoppinglists.service';
 
 
 @NgModule({
@@ -31,7 +30,7 @@ import { DropdownDirective } from './shared/dropdown.directive';
     BrowserModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [ShoppinglistsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
