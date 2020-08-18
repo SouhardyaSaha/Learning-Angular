@@ -9,13 +9,18 @@ import { RecipeEditComponent } from './recipe-book/recipe-edit/recipe-edit.compo
 
 const routes: Routes = [
   {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: '/recipes',
+  },
+  {
     path: 'recipes',
     component: RecipeBookComponent,
     children: [
       {
         path: '',
         pathMatch: 'full',
-        component: RecipeHomeComponent,
+        component: RecipeHomeComponent
       },
       {
         path: 'new',
@@ -31,12 +36,15 @@ const routes: Routes = [
       }
     ]
   },
+
   {
     path: 'shopping-list', component: ShoppingListComponent
   },
+
   {
     path: 'error', component: ErrorPageComponent, data: { message: 'Page Not Found' }
   },
+
   {
     path: '**', redirectTo: '/error'
   }
