@@ -1,4 +1,4 @@
-<div *ngIf="item;else infoText">
+<div class="mt-2">
   <div class="row">
     <div class="col-lg-12 col-md-4 ">
       <img [src]="item.imagePath" [alt]="item.name" class="img-responsive" style="max-width: 100%; max-height: auto;">
@@ -14,8 +14,8 @@
       <button class="btn btn-primary dropdown-toggle">Manage</button>
       <ul class="dropdown-menu">
         <li class="dropdown-item" (click)="addMultipleIngredientsToShoppingList()">To Shopping List</li>
-        <li class="dropdown-item">Edit</li>
-        <li class="dropdown-item">Delete</li>
+        <li class="dropdown-item" (click)="onEdit()">Edit</li>
+        <li class="dropdown-item" (click)="onDelete()">Delete</li>
       </ul>
     </div>
   </div>
@@ -33,10 +33,5 @@
       </div>
     </div>
   </div>
-</div>
 
-<ng-template #infoText>
-  <div class="d-flex justify-content-center">
-    <p>Please Select A Recipe</p>
-  </div>
-</ng-template>
+</div>
