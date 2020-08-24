@@ -3,7 +3,8 @@
     <app-shopping-edit></app-shopping-edit>
     <hr>
     <ul class="list-group">
-      <li class="list-group-item clearfix" style="cursor: pointer; color: burlywood;" *ngFor="let ingredient of Ingredients">
+      <li *ngFor="let ingredient of Ingredients" (click)="onEditItem(ingredient)" class="list-group-item clearfix"
+        style="cursor: pointer; color: rgb(61, 13, 219);">
         {{ ingredient.name }} ({{ ingredient.amount }})
       </li>
     </ul>

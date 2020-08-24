@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <!-- <form (ngSubmit)="onSubmit(f)" #f="ngForm"> -->
+      <form (ngSubmit)="onSubmit()" #f="ngForm">
+        <div id="user-data" ngModelGroup="userData" #userData="ngModelGroup">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" class="form-control" ngModel name="username" required>
+          </div>
+          <button class="btn btn-outline-info" type="button" (click)="onSuggestUsername()">Suggest an Username
+          </button>
+          <div class="form-group">
+            <label for="email">Mail</label>
+            <input type="email" id="email" class="form-control" ngModel name="email" required email #email="ngModel">
+            <small class="form-text text-muted text-danger" *ngIf="email.invalid && email.touched">
+              <p class="text-danger"> Please Enter a Valid Email Address!</p>
+            </small>
+          </div>
+        </div>
+        <small *ngIf="userData.invalid && userData.touched" class="form-text text-muted">
+          <p class="text-danger">Invalid User data</p>
+        </small>
+        <div class="form-group">
+          <label for="secret">Secret Questions</label>
+          <select id="secret" class="form-control" ngModel name="secret" [ngModel]="defaultSelectOption">
+            <option value="pet">Your first Pet?</option>
+            <option value="teacher">Your first teacher?</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <textarea name="answer" rows="5" class="form-control" [(ngModel)]="answer">
+          </textarea>
+          <p>Your Reply: {{ answer }}</p>
+        </div>
+        <div class="form-check mt-1" *ngFor="let gender of genders;let i = index">
+          <input class="form-check-input" type="radio" name="gender" id="gender-{{ i }}" [value]="gender" ngModel
+            required>
+          <label class="form-check-label" for="gender-{{ i }}">
+            {{ gender }}
+          </label>
+        </div>
+        <button class="btn btn-primary mt-3" type="submit" [disabled]="f.invalid">Submit</button>
+      </form>
+    </div>
+  </div>
+  <hr>
+  <div class="row" *ngIf="f.submitted">
+    <div class="col-12">
+      <p>User Name: {{ user.userData.username }}</p>
+      <p>Email: {{ user.userData.email }}</p>
+      <p>Secret: {{ user.secret }}</p>
+      <p>Gender: {{ user.gender }}</p>
+    </div>
+  </div>
+</div>

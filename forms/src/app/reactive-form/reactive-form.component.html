@@ -1,0 +1,51 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12">
+      <form [formGroup]="signupForm" (ngSubmit)="onSignup()">
+        <div [formGroupName]="'userData'">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input formControlName="username" type="text" id="username" class="form-control">
+            <small class="form-text text-muted text-danger"
+              *ngIf="signupForm.get('userData.username').invalid && signupForm.get('userData.username').touched">
+              <p *ngIf="signupForm.get('userData.username').errors['forbiddenName']" class="text-danger font-weight-bold">Username is invalid</p>
+              <p *ngIf="signupForm.get('userData.username').errors['required']" class="text-danger font-weight-bold"> Please Enter a Valid Username!</p>
+            </small>
+          </div>
+          <div class="form-group">
+            <label for="email">email</label>
+            <input formControlName="email" type="text" id="email" class="form-control">
+            <small *ngIf="signupForm.get('userData.email').invalid && signupForm.get('userData.email').touched"
+              class="form-text text-muted">
+              <p class="text-danger font-weight-bold"> Please Enter a Valid Email Address!</p>
+            </small>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="radio" *ngFor="let gender of genders">
+            <label>
+              <input formControlName="gender" type="radio" [value]="gender">
+              {{ gender }}
+            </label>
+          </div>
+          <small class="form-text text-muted" *ngIf="signupForm.invalid && signupForm.touched">
+            <p class="text-danger font-weight-bold"> Please Enter Valid Data!</p>
+          </small>
+        </div>
+        <div [formArrayName]="'hobbies'">
+          <h3>Your Hobbies</h3>
+          <button class="btn btn-info mr-2 mb-3" type="button" (click)="onAddhobbies()">Add Hobby</button>
+          <div *ngFor="let hobby of signupForm.get('hobbies')['controls']; let i = index" class="form-group">
+
+            <input [formControlName]="i" type="text" class="form-control">
+
+          </div>
+          <small *ngIf="signupForm.get('hobbies').invalid && signupForm.get('hobbies').touched" class="form-text text-muted">
+            <p class="text-danger font-weight-bold"> Please Enter a Valid Data!</p>
+          </small>
+        </div>
+        <button class="btn btn-primary mt-2" type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
