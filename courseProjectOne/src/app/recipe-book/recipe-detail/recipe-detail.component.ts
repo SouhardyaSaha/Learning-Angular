@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../recipe.model';
 import { RecipesService } from 'src/app/recipe-book/recipes.service';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router, Data } from '@angular/router';
 import { ThrowStmt } from '@angular/compiler';
 
 @Component({
@@ -11,7 +11,7 @@ import { ThrowStmt } from '@angular/compiler';
 })
 export class RecipeDetailComponent implements OnInit {
 
-  id: number
+  id
   item: Recipe
 
   constructor(
@@ -23,9 +23,16 @@ export class RecipeDetailComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(
       (params: Params) => {
-        this.id = +params['id']
-        this.item = this.recipeService.getRecipe(this.id)
+        this.id = params['id']
+        this.getDataFromResolver()
       }
+    )
+
+  }
+
+  private getDataFromResolver() {
+    this.route.data.subscribe(
+      (data: Data) => this.item = data['recipe']
     )
   }
 
@@ -35,7 +42,7 @@ export class RecipeDetailComponent implements OnInit {
 
   onEdit() {
     // this.router.navigate(['/recipes', this.item.id, 'edit'])
-    this.router.navigate(['../edit'], {relativeTo: this.route})
+    this.router.navigate(['../edit'], { relativeTo: this.route })
   }
 
   onDelete() {

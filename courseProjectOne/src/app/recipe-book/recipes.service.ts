@@ -4,6 +4,8 @@ import { Recipe } from "./recipe.model";
 import { Ingredient } from '../shared/ingredient.model';
 import { ShoppinglistsService } from '../shopping-list/shoppinglists.service';
 import { Subject } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class RecipesService {
@@ -30,32 +32,64 @@ export class RecipesService {
 
   newRecipesAdded = new Subject<Recipe[]>()
 
-  constructor(private shoppinglistsService: ShoppinglistsService) { }
+  constructor(private shoppinglistsService: ShoppinglistsService, private http: HttpClient) { }
 
   getRecipes() {
-    return this.recipes.slice()
+    return this.http
+      .get<Recipe[]>('http://localhost:3000/recipes')
+
+    // return this.recipes.slice()
   }
 
-  getRecipe(id: number) {
-    const recipe = this.recipes[+id]
-    return recipe
+  getRecipe(id: string) {
+    return this.http
+      .get<Recipe>(`http://localhost:3000/recipes/${id}`)
   }
 
   addRecipe(recipe: Recipe) {
-    this.recipes.push(recipe)
-    console.log(this.recipes.slice());
+
+    this.http
+      .post('http://localhost:3000/recipes', recipe)
+      .subscribe(
+        response => {
+          console.log(response);
+        },
+        error => {
+          console.log(error);
+        }
+      )
 
     this.newRecipesAdded.next(this.recipes.slice())
   }
 
-  updateRecipe(index: number, recipe: Recipe) {
-    this.recipes[+index] = recipe
-    this.newRecipesAdded.next(this.recipes.slice())
+  updateRecipe(id: string, recipe: Recipe) {
+    this.http
+      .patch(`http://localhost:3000/recipes/${id}`, recipe)
+      .subscribe(
+        response => {
+          console.log(response);
+        },
+        error => {
+          console.log(error);
+        }
+      )
+    // this.recipes[+index] = recipe
+    // this.newRecipesAdded.next(this.recipes.slice())
   }
 
-  deleteRecipe(index: number) {
-    this.recipes.splice(index, 1)
-    this.newRecipesAdded.next(this.recipes.slice())
+  deleteRecipe(id: string) {
+    this.http
+      .delete(`http://localhost:3000/recipes/${id}`)
+      .subscribe(
+        response => {
+          console.log(response);
+        },
+        error => {
+          console.log(error);
+        }
+      )
+    // this.recipes.splice(index, 1)
+    // this.newRecipesAdded.next(this.recipes.slice())
   }
 
   addMultipleToShoppingList(ingredients: Ingredient[]) {

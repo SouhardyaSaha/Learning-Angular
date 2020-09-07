@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router, Data } from '@angular/router';
 import { Recipe } from '../recipe.model';
 import { RecipesService } from '../recipes.service';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
@@ -12,7 +12,7 @@ import { Ingredient } from 'src/app/shared/ingredient.model';
 })
 export class RecipeEditComponent implements OnInit {
 
-  id: number
+  id: string
   recipe: Recipe
   editModule: boolean = false
 
@@ -24,13 +24,22 @@ export class RecipeEditComponent implements OnInit {
       (params: Params) => {
         this.editModule = params['id'] != null
         if (this.editModule) {
-          this.id = +params['id']
-          this.recipe = this.recipesService.getRecipe(this.id)
+          this.id = params['id']
+          this.getDataFromResolver()
+          // this.recipesService.getRecipe(this.id).subscribe(
+          //   recipe => this.recipe = recipe
+          // )
         }
         this.formInit()
         console.log(this.recipeEditForm);
 
       }
+    )
+  }
+
+  private getDataFromResolver() {
+    this.route.data.subscribe(
+      (data: Data) => this.recipe = data['recipe']
     )
   }
 
