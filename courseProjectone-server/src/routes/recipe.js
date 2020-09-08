@@ -6,10 +6,7 @@ const router = express.Router();
 
 // create recipe
 router.post('/recipes', async (req, res) => {
-    // const recipe = new Recipe({
-    //     ...req.body,
-    //     // owner: req.user._id
-    // });
+
     const recipe = new Recipe(req.body);
     try {
         await recipe.save();
@@ -23,11 +20,6 @@ router.post('/recipes', async (req, res) => {
 
 // get all recipes
 router.get('/recipes', auth, async (req, res) => {
-
-    // const match = {};
-    // if (req.query.isCompleted) {
-    //     match.isCompleted = req.query.isCompleted === 'true';
-    // }
 
     const sort = {};
     if (req.query.sortBy) {
@@ -55,8 +47,6 @@ router.get('/recipes/:id', auth, async (req, res) => {
 
     const _id = req.params.id;
     try {
-        // const recipe = await recipe.findOne({ _id, owner: req.user._id });
-        // const recipe = await Recipe.findOne({ _id });
         const recipe = await Recipe.findById(_id);
         if (!recipe) {
             return res.status(404).send({ error: 'Not Found!' });
@@ -75,21 +65,17 @@ router.patch('/recipes/:id', async (req, res) => {
     const updates = Object.keys(req.body);
     const allowedUpdates = ['name', 'description', 'imagePath', 'ingredients'];
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update));
-    // console.log(updates);
     if (!isValidOperation) {
         return res.status(400).send({ error: 'Invalid Update Request!' });
     }
 
     try {
-        // cosnt recipe = await Recipe.findById(req.params.id)
 
         const recipe = await Recipe.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
-        // console.log(recipe);
 
         res.send(recipe);
 
     } catch (error) {
-        // console.log(error);
         res.status(400).send(error);
     }
 });
@@ -97,7 +83,6 @@ router.patch('/recipes/:id', async (req, res) => {
 router.delete('/recipes/:id', async (req, res) => {
 
     try {
-        // const recipe = await recipe.findOneAndDelete({ _id: req.params.id, owner: req.user.id });
         const recipe = await Recipe.findOneAndDelete({ _id: req.params.id });
         if (!recipe) {
             return res.status(404).send();

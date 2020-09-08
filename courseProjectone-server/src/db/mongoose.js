@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // const connectionURL = process.env.DATABASE_CONNECTION_URL;
-const connectionURL = `mongodb://127.0.0.1:27017/recipe-book`;
+const connectionURL = process.env.DATABASE_CONNECTION_URL;
 
 mongoose.connect(connectionURL, {
     useNewUrlParser: true,

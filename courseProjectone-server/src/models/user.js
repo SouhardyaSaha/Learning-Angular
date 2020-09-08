@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-// const Task = require('./task');
 
 const tokenSchema = new mongoose.Schema({
     token: {
@@ -39,30 +38,14 @@ const userSchema = new mongoose.Schema({
         type: [tokenSchema],
         default: []
     }
-    // tokens: [{
-    //     token: {
-    //         type: String,
-    //         required: true
-    //     }
-    // }],
-    // avatar: {
-    //     type: Buffer
-    // }
+
 }, {
     timestamps: true
 });
 
-// userSchema.virtual('tasks', {
-//     ref: 'Task',
-//     localField: '_id',
-//     foreignField: 'owner'
-// });
-
 userSchema.methods.toJSON = function () {
     const user = this;
-    // console.log(user);
     const userObject = user.toObject();
-    // console.log(userObject);
 
     delete userObject.password;
     delete userObject.tokens;
@@ -75,14 +58,10 @@ userSchema.methods.toJSON = function () {
 userSchema.methods.generateAuthToken = async function () {
 
     const user = this;
-    const token = jwt.sign({ _id: user._id.toString() }, 'procsdfsdfsdfsdfnsdfsdfv.sdfsdfECRgwewT', { expiresIn: '1 hours' });
+    const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_SECRET, { expiresIn: '1 hours' });
 
-    // user.update
-    // user.tokens.push({ token })
     user.tokens = await user.tokens.concat({ token });
     await user.updateOne({tokens: user.tokens})
-    // console.log(user.tokens);
-    // console.log(user);
 
     return token;
 }
@@ -102,10 +81,6 @@ userSchema.statics.findByCredentials = async (email, password) => {
     return user;
 }
 
-// userSchema.statics.validateUser = function() {
-
-// }
-
 userSchema.pre('save', async function (next) {
 
     const user = this;
@@ -121,7 +96,6 @@ userSchema.pre('save', async function (next) {
 userSchema.pre('remove', async function (next) {
 
     const user = this;
-    // await Task.deleteMany({ owner: user.id });
 
     next();
 });

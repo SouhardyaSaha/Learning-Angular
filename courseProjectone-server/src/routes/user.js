@@ -34,9 +34,6 @@ router.post('/users/login', async (req, res) => {
 
         res.status(201).send({ user, token: { id: token, expiresIn: 3600 } });
     } catch (error) {
-        // if (error.message) {
-        //     return res.status(400).send(error.message);
-        // }
         res.status(400).send({error: error.message || 'Invalid Credentials'});
     }
 
@@ -48,7 +45,6 @@ router.post('/users/logout', auth, async (req, res) => {
         req.user.tokens = req.user.tokens.filter((token) => token.token !== req.token);
         await req.user.save();
         res.send({message: 'Logged Out'});
-        console.log('logout')
     } catch (error) {
         console.log(error);
         res.send(error);

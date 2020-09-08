@@ -4,7 +4,8 @@
   "description": "",
   "main": "src/app.js",
   "scripts": {
-    "dev": "nodemon src/app"
+    "start": "node src/app",
+    "dev": "env-cmd -f ./config/dev.env nodemon src/app"
   },
   "author": "",
   "license": "ISC",
@@ -20,6 +21,7 @@
     "validator": "^13.1.1"
   },
   "devDependencies": {
+    "env-cmd": "^10.1.0",
     "nodemon": "^2.0.4"
   }
 }
