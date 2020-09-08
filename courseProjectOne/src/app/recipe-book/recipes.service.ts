@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
-@Injectable()
+@Injectable({providedIn:'root'})
 export class RecipesService {
   private recipes: Recipe[] = [
     new Recipe(
