@@ -27,7 +27,7 @@ export interface AuthResponseData {
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
-  private baseURL = `http://localhost:3000`
+  private baseURL = `https://souhardya-recipe-app.herokuapp.com`
   user = new BehaviorSubject<User>(null)
 
   private tokenExpirationTimer: any

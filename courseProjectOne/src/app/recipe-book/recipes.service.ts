@@ -30,26 +30,27 @@ export class RecipesService {
     ),
   ]
 
+  private baseURL = `https://souhardya-recipe-app.herokuapp.com`
   newRecipesAdded = new Subject<Recipe[]>()
 
   constructor(private shoppinglistsService: ShoppinglistsService, private http: HttpClient) { }
 
   getRecipes() {
     return this.http
-      .get<Recipe[]>('http://localhost:3000/recipes')
+      .get<Recipe[]>(`${this.baseURL}/recipes`)
 
     // return this.recipes.slice()
   }
 
   getRecipe(id: string) {
     return this.http
-      .get<Recipe>(`http://localhost:3000/recipes/${id}`)
+      .get<Recipe>(`${this.baseURL}/recipes/${id}`)
   }
 
   addRecipe(recipe: Recipe) {
 
     this.http
-      .post('http://localhost:3000/recipes', recipe)
+      .post(`${this.baseURL}/recipes`, recipe)
       .subscribe(
         response => {
           console.log(response);
@@ -64,7 +65,7 @@ export class RecipesService {
 
   updateRecipe(id: string, recipe: Recipe) {
     this.http
-      .patch(`http://localhost:3000/recipes/${id}`, recipe)
+      .patch(`${this.baseURL}/recipes/${id}`, recipe)
       .subscribe(
         response => {
           console.log(response);
@@ -79,7 +80,7 @@ export class RecipesService {
 
   deleteRecipe(id: string) {
     this.http
-      .delete(`http://localhost:3000/recipes/${id}`)
+      .delete(`${this.baseURL}/recipes/${id}`)
       .subscribe(
         response => {
           console.log(response);
